@@ -1,4 +1,4 @@
-import { DressUpAction } from "./DressUp";
+import { DressUpAction } from './DressUpState';
 import './DressUpToolBox.css'
 
 interface DressUpToolBoxItem {
@@ -17,7 +17,7 @@ interface DressUpToolBoxItem {
 
 
 const DressUpToolBox = ({ dispatch }: DressUpToolBoxProps) => {
-    const items: DressUpToolBoxItem[] = [
+    const toolBoxItems: DressUpToolBoxItem[] = [
         { name: 'Dress 1', url: '/princesses/young/dress1.png', z: 200 },
         { name: 'Dress 2', url: '/princesses/young/dress2.png', z: 200 },
         { name: 'Dress 3', url: '/princesses/young/dress3.png', z: 200 },
@@ -35,7 +35,7 @@ const DressUpToolBox = ({ dispatch }: DressUpToolBoxProps) => {
     }
     return (
         <div className="toolbar">
-            {items.map(item => (
+            {toolBoxItems.map(item => (
                 <img className="toolbarItem" src={item.url} key={item.url} onClick={() => handleClick(item)} />
             ))}
         </div>

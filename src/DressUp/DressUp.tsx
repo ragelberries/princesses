@@ -1,34 +1,7 @@
 import { useReducer } from "react";
 import DressUpItemWidget from "./DressUpItemWidget";
+import { princessId, reducer } from "./DressUpState";
 import DressUpToolBox from "./DressUpToolBox";
-import { DressUpItem, Position } from "./DressUpTypes";
-
-interface DressUpAction {
-    type: string;
-    item: DressUpItem;
-}
-
-const princessId = 0;
-export { princessId }
-
-const reducer = (state: DressUpItem[], action: DressUpAction) => {
-    if (action.item.id === princessId && action.type !== 'move') {
-        return state;
-    }
-
-    if (action.type === 'add') {
-        return [...state, action.item];
-    } else if (action.type === 'remove') {
-        return state.filter(item => item.id !== action.item.id);
-    } else if (action.type === 'move') {
-        if (isWithinBounds(action.item.position)) {
-            return [...state.filter(item => item.id !== action.item.id), action.item];
-        }
-        return state;
-    }
-
-    throw new Error('Invalid action ' + action.type);
-}
 
 const DressUp = () => {
     const princessItem: DressUpItem = {
@@ -48,9 +21,17 @@ const DressUp = () => {
     )
 }
 
-export default DressUp;
-export type { DressUpAction, DressUpItem };
-
-function isWithinBounds(position: Position) {
-    return position.x > 0 && position.y > 100;
+export interface Position {
+    x: number;
+    y: number;
 }
+
+export interface DressUpItem {
+    id: number;
+    url: string;
+    position: Position;
+    z: number;
+}
+
+export default DressUp;
+
