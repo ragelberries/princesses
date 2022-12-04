@@ -24,7 +24,7 @@ const ItemWidget = (props: ItemWidgetProps) => {
             <img
                 draggable="false"
                 src={props.url}
-                style={{ position: 'absolute' }}
+                style={{ position: 'absolute', width: '100px' }}
             />
         </Draggable>
     )
