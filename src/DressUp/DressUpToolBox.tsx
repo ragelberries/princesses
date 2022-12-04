@@ -19,6 +19,9 @@ const DressUpToolBox = ({ dispatch }: DressUpToolBoxProps) => {
         { name: 'Dress 1', url: '/princesses/young/dress1.png' },
         { name: 'Dress 2', url: '/princesses/young/dress2.png' },
         { name: 'Dress 3', url: '/princesses/young/dress3.png' },
+        { name: 'Crown', url: '/princesses/young/crown.png' },
+        { name: 'Bow', url: '/princesses/young/bow.png' },
+        { name: 'Wings', url: '/princesses/young/wings.png' },
     ]
 
     const handleClick = (url: string) => {
