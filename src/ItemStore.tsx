@@ -1,11 +1,4 @@
-import { useState } from "react";
 import ItemWidget from "./ItemWidget";
-
-interface Item {
-    url: string;
-    initialPos: { x: number; y: number }
-}
-
 
 const ItemStore = () => {
     const items = [

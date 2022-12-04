@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useState } from "react";
 import Draggable, { DraggableData, DraggableEvent } from "react-draggable";
 
 interface ItemWidgetProps {
