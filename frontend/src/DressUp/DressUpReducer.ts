@@ -8,7 +8,7 @@ export interface DressUpAction {
     item: DressUpItem;
 }
 
-const reducer = (state: DressUpItem[], action: DressUpAction) => {
+const dressUpReducer = (state: DressUpItem[], action: DressUpAction) => {
     if (action.item.id === princessId && action.type !== 'move') {
         return state;
     }
@@ -30,4 +30,4 @@ const reducer = (state: DressUpItem[], action: DressUpAction) => {
 function isWithinBounds(position: Position) {
     return position.x > 0 && position.y > 100;
 }
-export { reducer, princessId }
+export { dressUpReducer, princessId }

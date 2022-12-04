@@ -1,6 +1,6 @@
 import { useReducer } from "react";
 import DressUpItemWidget from "./DressUpItemWidget";
-import { princessId, reducer } from "./DressUpReducer";
+import { princessId, dressUpReducer } from "./DressUpReducer";
 import DressUpToolBox from "./DressUpToolBox";
 
 const DressUp = () => {
@@ -10,7 +10,7 @@ const DressUp = () => {
         position: { x: 300, y: 300 },
         z: 100
     };
-    const [state, stateDispatch] = useReducer(reducer, [princessItem]);
+    const [state, stateDispatch] = useReducer(dressUpReducer, [princessItem]);
     return (
         <div>
             {state.map(item => (
