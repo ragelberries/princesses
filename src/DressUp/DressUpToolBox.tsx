@@ -1,4 +1,5 @@
 import { DressUpAction } from "./DressUp";
+import './DressUpToolBox.css'
 
 interface DressUpToolBoxItem {
     url: string;
@@ -33,9 +34,9 @@ const DressUpToolBox = ({ dispatch }: DressUpToolBoxProps) => {
         } })
     }
     return (
-        <div>
+        <div className="toolbar">
             {items.map(item => (
-                <button key={item.url} onClick={() => handleClick(item)}>{item.name}</button>
+                <img className="toolbarItem" src={item.url} key={item.url} onClick={() => handleClick(item)} />
             ))}
         </div>
     )
