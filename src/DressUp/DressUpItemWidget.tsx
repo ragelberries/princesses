@@ -1,6 +1,6 @@
 import Draggable, { DraggableData, DraggableEvent } from "react-draggable";
 import { DressUpItem } from "./DressUp";
-import { DressUpAction } from "./DressUpState";
+import { DressUpAction } from "./DressUpReducer";
 import './DressUpItemWidget.css';
 
 interface DressUpItemWidgetProps {

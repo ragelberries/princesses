@@ -1,3 +1,4 @@
+import { useReducer } from "react";
 import { DressUpItem, Position } from "./DressUp";
 
 const princessId = 0;

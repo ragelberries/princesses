@@ -1,4 +1,4 @@
-import { DressUpAction } from './DressUpState';
+import { DressUpAction } from './DressUpReducer';
 import './DressUpToolBox.css'
 
 interface DressUpToolBoxItem {
