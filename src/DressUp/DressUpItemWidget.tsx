@@ -1,5 +1,7 @@
 import Draggable, { DraggableData, DraggableEvent } from "react-draggable";
-import { DressUpAction, DressUpItem } from "./DressUp";
+import { DressUpItem } from "./DressUp";
+import { DressUpAction } from "./DressUpState";
+import './DressUpItemWidget.css';
 
 interface DressUpItemWidgetProps {
     item: DressUpItem;
@@ -14,10 +16,10 @@ const DressUpItemWidget = ({ item, dispatch }: DressUpItemWidgetProps) => {
 
     return (
         <Draggable position={item.position} onStop={(e, data) => handleStop(e, data)}>
-                <img onDoubleClick={() => dispatch({ type: 'remove', item: item })}
+                <img className="itemWidget" onDoubleClick={() => dispatch({ type: 'remove', item: item })}
                     src={item.url}
                     draggable="false"
-                    style={{ position: 'fixed', zIndex: item.z }}
+                    style={{ zIndex: item.z }}
                 />
         </Draggable>
     )
