@@ -14,13 +14,11 @@ const DressUpItemWidget = ({ item, dispatch }: DressUpItemWidgetProps) => {
 
     return (
         <Draggable position={item.position} onStop={(e, data) => handleStop(e, data)}>
-            <div>
                 <img onDoubleClick={() => dispatch({ type: 'remove', item: item })}
                     src={item.url}
                     draggable="false"
-                    style={{ position: 'fixed' }}
+                    style={{ position: 'fixed', zIndex: item.z }}
                 />
-            </div>
         </Draggable>
     )
 }

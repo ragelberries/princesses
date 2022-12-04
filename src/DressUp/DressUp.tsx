@@ -1,5 +1,5 @@
 import { useReducer } from "react";
-import DressUpArea from "./DressUpArea";
+import DressUpItemWidget from "./DressUpItemWidget";
 import DressUpToolBox from "./DressUpToolBox";
 import { DressUpItem } from "./DressUpTypes";
 
@@ -31,12 +31,15 @@ const DressUp = () => {
     const princessItem: DressUpItem = {
         id: princessId,
         url: '/princesses/young/princess.png',
-        position: { x: 100, y: 100 }
+        position: { x: 100, y: 100 },
+        z: 100
     };
     const [items, dispatch] = useReducer(reducer, [princessItem]);
     return (
         <div>
-            <DressUpArea items={items} dispatch={dispatch} />
+            {items.map(item => (
+                <DressUpItemWidget key={item.id} item={item} dispatch={dispatch} />
+            ))}
             <DressUpToolBox dispatch={dispatch} />
         </div>
     )
