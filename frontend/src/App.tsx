@@ -4,7 +4,8 @@ import Menu from "./Menu/Menu";
 
 interface MenuState {
     view: View;
-    chosenCharacterIdentifier: string | null;
+    characterIdentifier: string | null;
+    characterDisplayName: string | null;
 }
 
 export enum View {
@@ -15,11 +16,15 @@ export enum View {
 export type SetMenuState = React.Dispatch<React.SetStateAction<MenuState>>;
 
 const App = () => {
-    const initialMenuState: MenuState = { view: View.DressUp, chosenCharacterIdentifier: 'young' };
+    const initialMenuState: MenuState = {
+        view: View.Menu,
+        characterIdentifier: null,
+        characterDisplayName: null
+    };
     const [menuState, setMenuState] = useState(initialMenuState);
 
     switch (menuState.view) {
-        case View.DressUp: return <DressUp chosenCharacterIdentifier={menuState.chosenCharacterIdentifier!} setMenuState={setMenuState} />;
+        case View.DressUp: return <DressUp displayName={menuState.characterDisplayName!} identifier={menuState.characterIdentifier!} setMenuState={setMenuState} />;
         case View.Menu: return <Menu setMenuState={setMenuState} />;
     }
 }
