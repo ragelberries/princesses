@@ -1,9 +1,15 @@
 import { useReducer } from "react";
+import { SetMenuState, View } from "../App";
 import DressUpItemWidget from "./DressUpItemWidget";
 import { princessId, dressUpReducer } from "./DressUpReducer";
 import DressUpToolBox from "./DressUpToolBox";
 
-const DressUp = () => {
+interface DressUpProps {
+    chosenCharacterIdentifier: string;
+    setMenuState: SetMenuState
+}
+
+const DressUp = ({ chosenCharacterIdentifier, setMenuState }: DressUpProps) => {
     const princessItem: DressUpItem = {
         id: princessId,
         url: '/princesses/young/princess.png',
@@ -13,11 +19,13 @@ const DressUp = () => {
     const [state, stateDispatch] = useReducer(dressUpReducer, [princessItem]);
     return (
         <div>
+            <h1>{chosenCharacterIdentifier}</h1>
             {state.map(item => (
                 <DressUpItemWidget key={item.id} item={item} dispatch={stateDispatch} />
             ))}
             <DressUpToolBox dispatch={stateDispatch} />
-        </div>
+            <button onClick={() => setMenuState({ view: View.Menu, chosenCharacterIdentifier: null })}>Gå till meny</button>
+        </div >
     )
 }
 
