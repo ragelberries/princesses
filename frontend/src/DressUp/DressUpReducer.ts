@@ -9,11 +9,13 @@ export interface DressUpAction {
 }
 
 const dressUpReducer = (state: DressUpItem[], action: DressUpAction) => {
-    if (action.item.id === princessId && action.type !== 'move') {
+    if (action.type === 'reset') {
+        return [action.item];
+    }
+    else if (action.item.id === princessId && action.type !== 'move') {
         return state;
     }
-
-    if (action.type === 'add') {
+    else if (action.type === 'add') {
         return [...state, action.item];
     } else if (action.type === 'remove') {
         return state.filter(item => item.id !== action.item.id);

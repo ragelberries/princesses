@@ -4,6 +4,9 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.Configure<AssetsOptions>(
+    builder.Configuration.GetSection(AssetsOptions.Assets));
+
 
 if (builder.Environment.IsDevelopment())
 {

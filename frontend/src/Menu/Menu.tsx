@@ -5,7 +5,6 @@ import { SetMenuState, View } from "../App"
 
 interface CharacterListing {
     identifier: string;
-    displayName: string;
     iconUrl: string;
 }
 
@@ -29,8 +28,7 @@ const Menu = ({ setMenuState }: MenuProps) => {
             {characterData && characterData.map(character => (
                 <img key={character.identifier} src={character.iconUrl} onClick={() => setMenuState({
                     view: View.DressUp,
-                    characterIdentifier: character.identifier,
-                    characterDisplayName: character.displayName
+                    characterIdentifier: character.identifier
                 })} />
             ))}
         </div>
