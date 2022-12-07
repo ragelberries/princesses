@@ -33,6 +33,7 @@ public class AssetsController : ControllerBase
         {
             files = Directory.EnumerateFiles(path).Select(f => Path.GetFileName(f))
                 .Where(f => f != "icon.png" && f != "main.png")
+                .OrderBy(f => f)
                 .ToList();
         }
         catch (DirectoryNotFoundException)
