@@ -2,11 +2,13 @@ import axios from "axios";
 import { useEffect, useReducer, useState } from "react";
 import { Link, useParams } from 'react-router-dom';
 import DressUpItemWidget from "./DressUpItemWidget";
-import { princessId, dressUpReducer } from "./DressUpReducer";
+import { princessId, dressUpReducer, DressUpAction } from "./DressUpReducer";
 import DressUpToolBox from "./DressUpToolBox";
 import './DressUp.css'
 
 interface DressUpProps {
+    state: DressUpItem[];
+    stateDispatch: (a: DressUpAction) => void;
 }
 
 interface CharacterData {
@@ -19,9 +21,8 @@ export interface ItemData {
     z: number;
 }
 
-const DressUp = () => {
+const DressUp = ({state, stateDispatch}: DressUpProps) => {
     const { identifier } = useParams();
-    const [state, stateDispatch] = useReducer(dressUpReducer, []);
     const [characterData, setCharacterData] = useState<CharacterData | undefined>(undefined);
 
     const fetchData = async () => {
