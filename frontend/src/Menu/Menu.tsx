@@ -1,6 +1,6 @@
 import axios from "axios"
 import { useEffect, useState } from "react"
-import { SetMenuState, View } from "../App"
+import { Link } from "react-router-dom";
 
 
 interface CharacterListing {
@@ -9,10 +9,9 @@ interface CharacterListing {
 }
 
 interface MenuProps {
-    setMenuState: SetMenuState
 }
 
-const Menu = ({ setMenuState }: MenuProps) => {
+const Menu = () => {
     const [characterData, setCharacterData] = useState<CharacterListing[] | null>(null);
 
     const fetchData = async () => {
@@ -26,10 +25,9 @@ const Menu = ({ setMenuState }: MenuProps) => {
     return (
         <div>
             {characterData && characterData.map(character => (
-                <img key={character.identifier} src={character.iconUrl} onClick={() => setMenuState({
-                    view: View.DressUp,
-                    characterIdentifier: character.identifier
-                })} />
+                <Link to={`dressup/${character.identifier}`}>
+                    <img key={character.identifier} src={character.iconUrl} />
+                </Link>
             ))}
         </div>
     )

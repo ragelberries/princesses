@@ -1,30 +1,28 @@
 import { useState } from "react";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import DressUp from "./DressUp/DressUp";
 import Menu from "./Menu/Menu";
-
-interface MenuState {
-    view: View;
-    characterIdentifier: string | null;
-}
 
 export enum View {
     Menu,
     DressUp
 }
 
-export type SetMenuState = React.Dispatch<React.SetStateAction<MenuState>>;
+const router = createBrowserRouter([
+  {
+    path: '/',
+    element: <Menu />
+  },
+  {
+    path: '/dressup/:identifier',
+    element: <DressUp />
+  }
+])
 
 const App = () => {
-    const initialMenuState: MenuState = {
-        view: View.Menu,
-        characterIdentifier: null,
-    };
-    const [menuState, setMenuState] = useState(initialMenuState);
-
-    switch (menuState.view) {
-        case View.DressUp: return <DressUp identifier={menuState.characterIdentifier!} setMenuState={setMenuState} />;
-        case View.Menu: return <Menu setMenuState={setMenuState} />;
-    }
+    return (
+    <RouterProvider router={router} />
+    )
 }
 
 export default App;

@@ -1,13 +1,12 @@
 import axios from "axios";
 import { useEffect, useReducer, useState } from "react";
-import { SetMenuState, View } from "../App";
+import { Link, useParams } from 'react-router-dom';
 import DressUpItemWidget from "./DressUpItemWidget";
 import { princessId, dressUpReducer } from "./DressUpReducer";
 import DressUpToolBox from "./DressUpToolBox";
+import './DressUp.css'
 
 interface DressUpProps {
-    identifier: string;
-    setMenuState: SetMenuState
 }
 
 interface CharacterData {
@@ -20,12 +19,15 @@ export interface ItemData {
     z: number;
 }
 
-const DressUp = ({ identifier, setMenuState }: DressUpProps) => {
+const DressUp = () => {
+    const { identifier } = useParams();
     const [state, stateDispatch] = useReducer(dressUpReducer, []);
     const [characterData, setCharacterData] = useState<CharacterData | undefined>(undefined);
 
     const fetchData = async () => {
-        let response = await axios.get('/character-data/' + identifier);
+        const url = '/character-data/' + identifier;
+        console.log(url);
+        let response = await axios.get(url);
         let data: CharacterData = response.data;
         setCharacterData(data);
         stateDispatch({
@@ -51,7 +53,9 @@ const DressUp = ({ identifier, setMenuState }: DressUpProps) => {
                 <DressUpItemWidget key={item.id} item={item} dispatch={stateDispatch} />
             ))}
             <DressUpToolBox items={characterData.itemsData} dispatch={stateDispatch} />
-            <button onClick={() => setMenuState({ view: View.Menu, characterIdentifier: null })}>Gå till meny</button>
+            <Link to="/">
+                <img className="home" src="/home.png" />
+            </Link>
         </div >
     )
 }
