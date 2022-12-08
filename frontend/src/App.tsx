@@ -1,6 +1,6 @@
 import { useReducer } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import ClothingStage from "./Clothing/ClothingStage";
+import ClothingStage from "./ClothingStage/ClothingStage";
 import Menu from "./Menu/Menu";
 import { stateReducer } from "./DressUpReducer";
 
