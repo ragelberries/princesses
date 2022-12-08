@@ -35,7 +35,7 @@ const DressUp = () => {
             item: {
                 id: princessId,
                 url: data.characterData.url,
-                position: { x: 300, y: 300 },
+                position: { x: 300, y: 200 },
                 z: data.characterData.z
             }
         });
