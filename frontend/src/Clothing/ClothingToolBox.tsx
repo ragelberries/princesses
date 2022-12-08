@@ -1,15 +1,13 @@
-import axios from 'axios';
-import { useEffect, useState } from 'react';
-import { ItemData } from './DressUp';
-import { DressUpAction } from './DressUpReducer';
-import './DressUpToolBox.css'
+import { ItemData } from './ClothingStage';
+import { DressUpAction } from '../DressUpReducer';
+import './ClothingToolBox.css'
 
-interface DressUpToolBoxProps {
+interface ClothingToolBoxProps {
     items: ItemData[] | undefined;
     dispatch: (a: DressUpAction) => void;
 }
 
-const DressUpToolBox = ({ items, dispatch }: DressUpToolBoxProps) => {
+const DressUpToolBox = ({ items, dispatch }: ClothingToolBoxProps) => {
     const handleClick = (item: ItemData) => {
         dispatch({
             type: 'add', item: {

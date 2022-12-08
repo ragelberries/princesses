@@ -1,15 +1,14 @@
+import './DraggableItem.css';
 import Draggable, { DraggableData, DraggableEvent } from "react-draggable";
-import { DressUpItem } from "./DressUp";
-import { DressUpAction } from "./DressUpReducer";
-import './DressUpItemWidget.css';
+import { DressUpAction, DressUpItem } from "../DressUpReducer";
 import { useRef, useState } from "react";
 
-interface DressUpItemWidgetProps {
+interface DraggableItemProps {
     item: DressUpItem;
     dispatch: (a: DressUpAction) => void;
 }
 
-const DressUpItemWidget = ({ item, dispatch }: DressUpItemWidgetProps) => {
+const DraggableItemProps = ({ item, dispatch }: DraggableItemProps) => {
     const [dragging, setDragging] = useState(false);
 
     const handleStart = (e: DraggableEvent, data: DraggableData): false | void => {
@@ -35,5 +34,5 @@ const DressUpItemWidget = ({ item, dispatch }: DressUpItemWidgetProps) => {
 }
 
 
-export default DressUpItemWidget;
+export default DraggableItemProps;
 

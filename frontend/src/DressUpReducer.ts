@@ -1,14 +1,25 @@
-import { useReducer } from "react";
-import { DressUpItem, Position } from "./DressUp";
-
-const princessId = 0;
+export type DressUpState = DressUpItem[];
 
 export interface DressUpAction {
     type: string;
     item: DressUpItem;
 }
 
-const dressUpReducer = (state: DressUpItem[], action: DressUpAction) => {
+export type DressUpDispatcher = React.Dispatch<DressUpAction>;
+
+export interface DressUpItem {
+    id: number;
+    url: string;
+    position: Position;
+    z: number;
+}
+
+export interface Position {
+    x: number;
+    y: number;
+}
+
+const dressUpReducer = (state: DressUpState, action: DressUpAction) => {
     if (action.type === 'reset') {
         return [action.item];
     }
@@ -29,7 +40,11 @@ const dressUpReducer = (state: DressUpItem[], action: DressUpAction) => {
     throw new Error('Invalid action ' + action.type);
 }
 
+const princessId = 0;
+
 function isWithinBounds(position: Position) {
     return position.x > 0 && position.y > 100;
 }
-export { dressUpReducer, princessId }
+
+
+export { dressUpReducer as stateReducer, princessId }

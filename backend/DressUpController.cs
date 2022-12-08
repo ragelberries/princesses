@@ -2,11 +2,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 
 [ApiController]
-public class AssetsController : ControllerBase
+public class DressUpController : ControllerBase
 {
     private AssetsOptions _options;
 
-    public AssetsController(IOptions<AssetsOptions> options)
+    public DressUpController(IOptions<AssetsOptions> options)
     {
         _options = options.Value;
     }
@@ -24,7 +24,7 @@ public class AssetsController : ControllerBase
     }
     public record CharacterListing(string Identifier, string IconUrl);
 
-    [HttpGet("character-data/{identifier}")]
+    [HttpGet("clothing-data/{identifier}")]
     public ActionResult<DressUpData> GetCharacterData(string identifier)
     {
         string path = Path.Combine(_options.Directory, identifier);

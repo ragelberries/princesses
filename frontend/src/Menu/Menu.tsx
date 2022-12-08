@@ -2,13 +2,9 @@ import axios from "axios"
 import { useEffect, useState } from "react"
 import { Link } from "react-router-dom";
 
-
 interface CharacterListing {
     identifier: string;
     iconUrl: string;
-}
-
-interface MenuProps {
 }
 
 const Menu = () => {
@@ -32,5 +28,6 @@ const Menu = () => {
         </div>
     )
 }
+
 
 export default Menu
