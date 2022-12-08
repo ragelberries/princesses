@@ -1,0 +1,17 @@
+.makeupNavigation {
+    width: 100px;
+     position: fixed;
+     right: 0;
+     bottom: 0;
+     z-index: 100;
+     margin: 1em;
+}
+
+.homeNavigation {
+    width: 100px;
+     position: fixed;
+     left: 0;
+     bottom: 0;
+     z-index: 100;
+     margin: 1em;
+}
