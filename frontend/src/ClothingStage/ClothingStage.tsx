@@ -59,7 +59,7 @@ const ClothingStage = ({ state, stateDispatch, menuState, setMenuState }: Clothi
             ))}
             <DressUpToolBox items={clothingData.itemsData} dispatch={stateDispatch} />
             <img className="homeNavigation" src={home} onClick={() => setMenuState({view: View.Menu, characterIdentifier: null})} />
-            <img className="makeupNavigation" src={makeup} onClick={() => setMenuState({view: View.Menu, characterIdentifier: null})} />
+            <img className="makeupNavigation" src={makeup} onClick={() => setMenuState({view: View.MakeUp, characterIdentifier: null})} />
         </div >
     )
 }
