@@ -1,22 +1,40 @@
-import { useReducer } from "react";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { useReducer, useState } from "react";
 import ClothingStage from "./ClothingStage/ClothingStage";
 import Menu from "./Menu/Menu";
 import { stateReducer } from "./DressUpReducer";
 import MakeupStage from "./MakeupStage/MakeUpStage";
 
-const App = () => {
-    const [state, stateDispatch] = useReducer(stateReducer, []);
 
-    return (
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Menu />} />
-          <Route path="/dressup/:identifier" element={<ClothingStage state={state} stateDispatch={stateDispatch} />} />
-          <Route path="makeup" element={<MakeupStage state={state} stateDispatch={stateDispatch} />} />
-        </Routes>
-      </BrowserRouter>
-    )
+export interface MenuState {
+  view: View;
+  characterIdentifier: string | null;
+}
+
+export enum View {
+  Menu,
+  Clothing,
+  MakeUp
+}
+
+const App = () => {
+  const initialMenuState: MenuState = {
+    view: View.Menu,
+    characterIdentifier: null,
+  };
+  const [menuState, setMenuState] = useState(initialMenuState);
+  const [state, stateDispatch] = useReducer(stateReducer, []);
+
+  switch (menuState.view) {
+    case View.Menu:
+      return <Menu setMenuState={setMenuState}/>
+    case View.Clothing:
+      return <ClothingStage stateDispatch={stateDispatch} state={state} menuState={menuState} setMenuState={setMenuState} />
+    case View.MakeUp:
+      return <MakeupStage state={state} stateDispatch={stateDispatch} />
+    default:
+      throw new Error('Invalid menu stage ' + menuState.view);
+  }
+
 }
 
 export default App;

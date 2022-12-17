@@ -1,16 +1,18 @@
 import './ClothingStage.css'
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { Link, useParams } from 'react-router-dom';
 import DraggableItemProps from "./DraggableItem";
 import { princessId, DressUpState, DressUpDispatcher } from "../DressUpReducer";
 import DressUpToolBox from "./ClothingToolBox";
-import  home from '/src/assets/home.png';
+import home from '/src/assets/home.png';
 import makeup from '/src/assets/forwardarrow.png';
+import { MenuState, View } from '../App';
 
 interface ClothingStageProps {
-    state: DressUpState,
-    stateDispatch: DressUpDispatcher
+    state: DressUpState;
+    stateDispatch: DressUpDispatcher;
+    menuState: MenuState;
+    setMenuState: (s: MenuState) => void;
 }
 
 interface ClothingData {
@@ -23,13 +25,12 @@ export interface ItemData {
     z: number;
 }
 
-const ClothingStage = ({state, stateDispatch}: ClothingStageProps) => {
+const ClothingStage = ({ state, stateDispatch, menuState, setMenuState }: ClothingStageProps) => {
     const [clothingData, setClothingData] = useState<ClothingData | undefined>(undefined);
-    const { identifier } = useParams();
 
     const fetchData = async () => {
-        if (identifier) {
-            let response = await axios.get('/clothing-data/' + identifier);
+        console.log(menuState.characterIdentifier);
+            let response = await axios.get('/clothing-data/' + menuState.characterIdentifier);
             let data: ClothingData = response.data;
             setClothingData(data);
 
@@ -42,7 +43,7 @@ const ClothingStage = ({state, stateDispatch}: ClothingStageProps) => {
                     z: data.characterData.z
                 }
             });
-        }
+        
     }
 
     useEffect(() => { fetchData() }, []);
@@ -57,12 +58,8 @@ const ClothingStage = ({state, stateDispatch}: ClothingStageProps) => {
                 <DraggableItemProps key={item.id} item={item} dispatch={stateDispatch} />
             ))}
             <DressUpToolBox items={clothingData.itemsData} dispatch={stateDispatch} />
-            <Link to="/">
-                <img className="homeNavigation" src={home} />
-            </Link>
-            <Link to="/makeup">
-                <img className="makeupNavigation" src={makeup} />
-            </Link>
+            <img className="homeNavigation" src={home} onClick={() => setMenuState({view: View.Menu, characterIdentifier: null})} />
+            <img className="makeupNavigation" src={makeup} onClick={() => setMenuState({view: View.Menu, characterIdentifier: null})} />
         </div >
     )
 }
