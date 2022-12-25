@@ -50,23 +50,20 @@ public class DressUpController : ControllerBase
             files.Select(file => ParseItemData(identifier, file)).ToList());
     }
 
-    private ItemData ParseItemData(string identifier, string file)
+    private ItemData ParseItemData(string identifier, string filename)
     {
-        string pattern = @"^.+_(.+?)\..+$";
-
+        string pattern = @"(?<before>.*)_(?<number>\d+)\.\w+$";
         Regex regex = new Regex(pattern);
+        Match match = regex.Match(filename);
 
-        Match match = regex.Match(file);
-
+        int? number = null;
         if (match.Success)
         {
-            string partAfterUnderscore = match.Groups[1].Value;
-            return new ItemData(
-                Path.Combine(_options.Prefix, identifier, file), int.Parse(partAfterUnderscore)
-            );
+            number = int.Parse(match.Groups["number"].Value);
         }
+
         return new ItemData(
-            Path.Combine(_options.Prefix, identifier, file), DefaultZIndex
+            Path.Combine(_options.Prefix, identifier, filename), number ?? DefaultZIndex
         );
     }
 }
