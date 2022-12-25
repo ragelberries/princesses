@@ -1,9 +1,14 @@
+using System.Text.RegularExpressions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 
 [ApiController]
 public class DressUpController : ControllerBase
 {
+    private const string IconFileName = "icon.png";
+    private const string MainFileName = "main.png";
+    private const int CharacterZIndex = 100;
+    private const int DefaultZIndex = 200;
     private AssetsOptions _options;
 
     public DressUpController(IOptions<AssetsOptions> options)
@@ -19,7 +24,7 @@ public class DressUpController : ControllerBase
 
         return directories.Select(dirName =>
             new CharacterListing(dirName,
-                Path.Combine(_options.Prefix, dirName, "icon.png")))
+                Path.Combine(_options.Prefix, dirName, IconFileName)))
             .ToList();
     }
     public record CharacterListing(string Identifier, string IconUrl);
@@ -32,7 +37,7 @@ public class DressUpController : ControllerBase
         try
         {
             files = Directory.EnumerateFiles(path).Select(f => Path.GetFileName(f))
-                .Where(f => f != "icon.png" && f != "main.png")
+                .Where(f => f != IconFileName && f != MainFileName)
                 .OrderBy(f => f)
                 .ToList();
         }
@@ -41,14 +46,27 @@ public class DressUpController : ControllerBase
             return NotFound();
         }
 
-        return new DressUpData(new ItemData(Path.Combine(_options.Prefix, identifier, "main.png"), 0),
+        return new DressUpData(new ItemData(Path.Combine(_options.Prefix, identifier, MainFileName), CharacterZIndex),
             files.Select(file => ParseItemData(identifier, file)).ToList());
     }
 
     private ItemData ParseItemData(string identifier, string file)
     {
+        string pattern = @"^.+_(.+?)\..+$";
+
+        Regex regex = new Regex(pattern);
+
+        Match match = regex.Match(file);
+
+        if (match.Success)
+        {
+            string partAfterUnderscore = match.Groups[1].Value;
+            return new ItemData(
+                Path.Combine(_options.Prefix, identifier, file), int.Parse(partAfterUnderscore)
+            );
+        }
         return new ItemData(
-            Path.Combine(_options.Prefix, identifier, file), 50
+            Path.Combine(_options.Prefix, identifier, file), DefaultZIndex
         );
     }
 }
