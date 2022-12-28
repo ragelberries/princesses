@@ -1,13 +1,30 @@
 import { DressUpDispatcher, DressUpState } from "../DressUpReducer";
+import StaticItem from "./StaticItem";
+import forwardArrow from '/src/assets/forwardarrow.png';
+import { MenuState, View } from "../App";
+import './MakeUpStage.css';
 
 interface MakeupStageProps {
     state: DressUpState,
     stateDispatch: DressUpDispatcher
+    menuState: MenuState;
+    setMenuState: (s: MenuState) => void;
 }
 
-const MakeupStage = ({state, stateDispatch}: MakeupStageProps) => {
+const MakeupStage = ({ state, stateDispatch, menuState, setMenuState }: MakeupStageProps) => {
     return (
-        <h1>Makeup stage</h1>
+        <div>
+
+            {state.map(item => (
+                <StaticItem key={item.id} item={item} dispatch={stateDispatch} />
+            ))}
+            <img
+                className="clothingNavigation"
+                style={{}}
+                src={forwardArrow}
+                onClick={() => setMenuState({ view: View.Clothing, characterIdentifier: menuState.characterIdentifier })}
+            />
+        </div>
     )
 }
 

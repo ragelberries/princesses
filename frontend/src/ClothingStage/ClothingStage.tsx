@@ -5,7 +5,7 @@ import DraggableItemProps from "./DraggableItem";
 import { princessId, DressUpState, DressUpDispatcher } from "../DressUpReducer";
 import DressUpToolBox from "./ClothingToolBox";
 import home from '/src/assets/home.png';
-import makeup from '/src/assets/forwardarrow.png';
+import forwardArrow from '/src/assets/forwardarrow.png';
 import { MenuState, View } from '../App';
 
 interface ClothingStageProps {
@@ -29,12 +29,12 @@ const ClothingStage = ({ state, stateDispatch, menuState, setMenuState }: Clothi
     const [clothingData, setClothingData] = useState<ClothingData | undefined>(undefined);
 
     const fetchData = async () => {
-        console.log(menuState.characterIdentifier);
-            let response = await axios.get('/clothing-data/' + menuState.characterIdentifier);
-            let data: ClothingData = response.data;
-            setClothingData(data);
-            console.log(data);
+        let response = await axios.get('/clothing-data/' + menuState.characterIdentifier);
+        let data: ClothingData = response.data;
+        setClothingData(data);
+        console.log(data);
 
+        if (state.length < 2) {
             stateDispatch({
                 type: 'reset',
                 item: {
@@ -44,10 +44,15 @@ const ClothingStage = ({ state, stateDispatch, menuState, setMenuState }: Clothi
                     z: data.characterData.z
                 }
             });
-        
+        }
+
     }
 
     useEffect(() => { fetchData() }, []);
+
+    const gotoHome = () => {
+        setMenuState({ view: View.Menu, characterIdentifier: null });
+    }
 
     if (!clothingData) {
         return <h1>Fetching...</h1>
@@ -59,8 +64,8 @@ const ClothingStage = ({ state, stateDispatch, menuState, setMenuState }: Clothi
                 <DraggableItemProps key={item.id} item={item} dispatch={stateDispatch} />
             ))}
             <DressUpToolBox items={clothingData.itemsData} dispatch={stateDispatch} />
-            <img className="homeNavigation" src={home} onClick={() => setMenuState({view: View.Menu, characterIdentifier: null})} />
-            <img className="makeupNavigation" src={makeup} onClick={() => setMenuState({view: View.MakeUp, characterIdentifier: null})} />
+            <img className="homeNavigation" src={home} onClick={gotoHome} />
+            <img className="makeupNavigation" src={forwardArrow} onClick={() => setMenuState({ view: View.MakeUp, characterIdentifier: menuState.characterIdentifier })} />
         </div >
     )
 }

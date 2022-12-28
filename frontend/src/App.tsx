@@ -30,7 +30,7 @@ const App = () => {
     case View.Clothing:
       return <ClothingStage stateDispatch={stateDispatch} state={state} menuState={menuState} setMenuState={setMenuState} />
     case View.MakeUp:
-      return <MakeupStage state={state} stateDispatch={stateDispatch} />
+      return <MakeupStage state={state} stateDispatch={stateDispatch} menuState={menuState} setMenuState={setMenuState} />
     default:
       throw new Error('Invalid menu stage ' + menuState.view);
   }
