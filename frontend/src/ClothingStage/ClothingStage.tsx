@@ -32,11 +32,10 @@ const ClothingStage = ({ state, stateDispatch, menuState, setMenuState }: Clothi
         let response = await axios.get('/clothing-data/' + menuState.characterIdentifier);
         let data: ClothingData = response.data;
         setClothingData(data);
-        console.log(data);
 
-        if (state.length < 2) {
+        if (state.length === 0) {
             stateDispatch({
-                type: 'reset',
+                type: 'setup',
                 item: {
                     id: princessId,
                     url: data.characterData.url,
@@ -45,6 +44,7 @@ const ClothingStage = ({ state, stateDispatch, menuState, setMenuState }: Clothi
                 }
             });
         }
+
 
     }
 

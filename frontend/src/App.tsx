@@ -26,7 +26,7 @@ const App = () => {
 
   switch (menuState.view) {
     case View.Menu:
-      return <Menu setMenuState={setMenuState}/>
+      return <Menu setMenuState={setMenuState} stateDispatch={stateDispatch} />
     case View.Clothing:
       return <ClothingStage stateDispatch={stateDispatch} state={state} menuState={menuState} setMenuState={setMenuState} />
     case View.MakeUp:

@@ -1,16 +1,18 @@
 import axios from "axios"
 import { useEffect, useState } from "react"
 import { MenuState, View } from "../App";
+import { DressUpDispatcher } from "../DressUpReducer";
 
 interface CharacterListing {
     identifier: string;
     iconUrl: string;
 }
 interface MenuProps {
-    setMenuState: (s: MenuState) => void;
+    setMenuState: (s: MenuState) => void
+    stateDispatch: DressUpDispatcher
 }
 
-const Menu = ({ setMenuState }: MenuProps) => {
+const Menu = ({ setMenuState, stateDispatch }: MenuProps) => {
     const [characterData, setCharacterData] = useState<CharacterListing[] | null>(null);
 
     const fetchData = async () => {
@@ -21,13 +23,22 @@ const Menu = ({ setMenuState }: MenuProps) => {
     useEffect(() => {
         fetchData();
     }, [])
+
+    const createNewClothingStage = (identifier: string) => {
+        stateDispatch({
+            type: 'reset',
+            item: undefined
+        })
+        setMenuState({ view: View.Clothing, characterIdentifier: identifier })
+    }
     return (
         <div>
             {characterData && characterData.map(character => (
                 <img
                     key={character.identifier}
                     src={character.iconUrl}
-                    onClick={() => setMenuState({ view: View.Clothing, characterIdentifier: character.identifier })} />
+                    onClick={() => createNewClothingStage(character.identifier)}
+                />
             ))}
         </div>
     )
