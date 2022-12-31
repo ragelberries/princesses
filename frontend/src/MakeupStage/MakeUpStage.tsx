@@ -1,8 +1,9 @@
-import { DressUpDispatcher, DressUpState } from "../DressUpReducer";
+import { DressUpDispatcher, DressUpState, princessId } from "../DressUpReducer";
 import StaticItem from "./StaticItem";
 import forwardArrow from '/src/assets/forwardarrow.png';
 import { MenuState, View } from "../App";
 import './MakeUpStage.css';
+import PaintableWidget from "./PaintableWidget";
 
 interface MakeupStageProps {
     state: DressUpState,
@@ -15,9 +16,14 @@ const MakeupStage = ({ state, stateDispatch, menuState, setMenuState }: MakeupSt
     return (
         <div>
 
-            {state.map(item => (
-                <StaticItem key={item.id} item={item} dispatch={stateDispatch} />
-            ))}
+            {state.map(item => {
+                if (item.id === princessId) {
+                    return <PaintableWidget url={item.url} />
+                }
+                else {
+                    return <StaticItem key={item.id} item={item} dispatch={stateDispatch} />
+                }
+            })}
             <img
                 className="clothingNavigation"
                 style={{}}

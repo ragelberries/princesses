@@ -9,7 +9,7 @@ interface StaticItemProps {
 const StaticItem = ({ item, dispatch }: StaticItemProps) => {
 
     return (
-        <img className="itemWidget"
+        <img className="staticItemWidget"
             src={item.url}
             draggable="false"
             style={{ left: item.position.x, top: item.position.y, zIndex: item.z }}
