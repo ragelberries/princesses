@@ -18,7 +18,7 @@ const MakeupStage = ({ state, stateDispatch, menuState, setMenuState }: MakeupSt
 
             {state.map(item => {
                 if (item.id === princessId) {
-                    return <PaintableWidget url={item.url} position={item.position} />
+                    return <PaintableWidget url={item.url} imagePosition={item.position} />
                 }
                 else {
                     return <StaticItem key={item.id} item={item} dispatch={stateDispatch} />
