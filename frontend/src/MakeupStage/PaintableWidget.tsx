@@ -1,9 +1,12 @@
 import { useEffect, useRef } from "react";
+import { Position } from "../DressUpReducer";
 
 export interface PaintableWidgetProps {
     url: string;
+    position: Position;
 }
-const PaintableWidget = ({ url }: PaintableWidgetProps) => {
+
+const PaintableWidget = ({ url, position }: PaintableWidgetProps) => {
     const myCanvas = useRef<HTMLCanvasElement>(null);
 
     useEffect(() => {
@@ -16,13 +19,15 @@ const PaintableWidget = ({ url }: PaintableWidgetProps) => {
             return;
         }
         const image = new Image();
-        image.src = url;
         image.onload = () => {
-            context.drawImage(image, 0, 0, 500, 700);
+            canvas.width = image.width;
+            canvas.height = image.height;
+            context.drawImage(image, 0, 0)
         };
+        image.src = url;
     }, []);
 
-    return <canvas ref={myCanvas} width={500} height={700} />;
+    return <canvas ref={myCanvas} style={{left: position.x, top: position.y}}/>;
 }
 
 export default PaintableWidget;
